@@ -3,7 +3,7 @@
 /**
  * Simple class to perform customized mailer.
  */
-class wordpress_mail
+class class_after_listen_email
 {
 
     /**
@@ -294,7 +294,7 @@ class wordpress_mail
      *
      * @param bool $have_attachments
      */
-    public function setHaveAttachments($have_attachments)
+    public function haveAttachments($have_attachments)
     {
         $have_attachments = boolval($have_attachments);
 
