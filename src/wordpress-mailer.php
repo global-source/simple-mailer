@@ -251,7 +251,7 @@ class class_after_listen_email
             $this->setAttachment(false);
         }
         // Return attachment.
-        return $this->attachment;
+        return $this->attachment ? $this->attachment : '';
     }
 
     /**
@@ -262,8 +262,6 @@ class class_after_listen_email
      */
     public function setAttachment($attachment)
     {
-        // Sanity check.
-        if (!isset($attachment)) return false;
         $this->attachment = $attachment;
     }
 
@@ -297,7 +295,7 @@ class class_after_listen_email
     public function haveAttachments($have_attachments)
     {
         $have_attachments = boolval($have_attachments);
-
+        if (false === $have_attachments) $this->setAttachment('');
         $this->have_attachments = $have_attachments;
     }
 
@@ -332,12 +330,12 @@ class class_after_listen_email
         // Get header.
         $header = $this->getHeader();
         // Get attachment.
-        $attachment = $this->getAttachment();
+        $attachment = $this->isHaveAttachments() ? $this->getAttachment() : '';
         // Check if error occurred, then throw error list back.
         if (count($this->getErrors()) > 0) return $this->getErrors();
+
         // trigger mail.
         wp_mail($to, $title, $body, $header, $attachment);
         return true;
     }
-
 }
